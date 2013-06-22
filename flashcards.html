@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang=en>
+  <meta charset=utf-8>
+  <title>TGM Sound Flash Cards</title>
+  <meta name=viewport content="width=device-width">
+<style>
+html {
+  background: #000;
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%; }
+body {
+  color: #dddddd;
+  margin: 0 auto;
+  text-align: center; }
+h1 {
+  margin: 1.07em 0 1.5rem;
+  font-size: 2rem; }
+li {
+  display: inline-block;
+  padding: 2em 0.5em;
+  margin: 0.5em;
+  background: #ddd;
+  border-radius: 0.5em; }
+#active {
+  display: inline-block;
+  padding: 1em 0;
+  margin: 0.5em;
+  background: #ddd;
+  border-radius: 0.5em; }
+#act {
+  width: 50%;
+  height: 50%;
+}
+</style>
+<h1>TGM Sound Flash Cards</h1>
+<p id=active>
+<p>Total: <span id=total>0</span>
+<p>Missed: <span id=missed>0</span>
+<ul>
+  <li onclick=pick(0)><img src=i/I.png>
+  <li onclick=pick(1)><img src=i/T.png>
+  <li onclick=pick(2)><img src=i/L.png>
+  <li onclick=pick(3)><img src=i/J.png>
+  <li onclick=pick(4)><img src=i/S.png>
+  <li onclick=pick(5)><img src=i/Z.png>
+  <li onclick=pick(6)><img src=i/O.png>
+</ul>
+<audio>
+  <source src='audio/mp3/I.mp3'></source>
+  <source src='audio/ogg/I.ogg'></source>
+</audio>
+<audio>
+  <source src='audio/mp3/T.mp3'></source>
+  <source src='audio/ogg/T.ogg'></source>
+</audio>
+<audio>
+  <source src='audio/mp3/L.mp3'></source>
+  <source src='audio/ogg/L.ogg'></source>
+</audio>
+<audio>
+  <source src='audio/mp3/J.mp3'></source>
+  <source src='audio/ogg/J.ogg'></source>
+</audio>
+<audio>
+  <source src='audio/mp3/S.mp3'></source>
+  <source src='audio/ogg/S.ogg'></source>
+</audio>
+<audio>
+  <source src='audio/mp3/Z.mp3'></source>
+  <source src='audio/ogg/Z.ogg'></source>
+</audio>
+<audio>
+  <source src='audio/mp3/O.mp3'></source>
+  <source src='audio/ogg/O.ogg'></source>
+</audio>
+<script>
+var next;
+var total= 0;
+var missed= 0;
+var sounds = document.getElementsByTagName('audio');
+var tetros = ['I', 'T', 'L', 'J', 'S', 'Z', 'O'];
+
+function pick(tetro) {
+  total++;
+  if (tetro !== next) {
+    missed++;
+    active.style.background = '#ffcccc';
+  } else {
+    active.style.background = '#ccffcc';
+  }
+  document.getElementsByTagName('span')[0].innerHTML = total;
+  document.getElementsByTagName('span')[1].innerHTML = missed;
+  play();
+}
+function play() {
+  active.innerHTML = '<img id=act src=i/' + tetros[next] + '.png>';
+  next = ~~(Math.random() * 7);
+  sounds[next].play();
+  sounds[next].currentTime = 0;
+}
+play();
+</script>
